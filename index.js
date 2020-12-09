@@ -167,13 +167,52 @@ function addEmployee() {
 
 //viewing section
 
-function viewItem() {
+function viewItem(){
+    inquirer
+    .prompt({
+        name: "viewType",
+        type: "list",
+        message: "What would you like to view?",
+        choices: ["Department", "Role", "Employee"]
+    })
+    .then(function (answer) {
+        if (answer.viewType === "Department") {
+            viewDepartment();
+        } else if (answer.viewType === "Role") {
+            viewRole();
+        } else if (answer.viewType === "Employee") {
+            viewEmployee();
+        }
+    });
+
+}
+
+function viewDepartment() {
     connection.query("SELECT * from department", function (err, results) {
         if (err) throw err;
         console.table(results);
+        init();
     });
 }
 
+function viewRole() {
+    connection.query("SELECT * from role", function (err, results) {
+        if (err) throw err;
+        console.table(results);
+        init();
+    });
+}
+
+function viewEmployee() {
+    connection.query("SELECT * from employee", function (err, results) {
+        if (err) throw err;
+        console.table(results);
+        init();
+    });
+}
+
+
+//updating section
 function updateRole() {
     console.log("Updating Role...!");
 }
