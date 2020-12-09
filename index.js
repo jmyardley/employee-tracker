@@ -81,7 +81,6 @@ function addDepartment() {
                     console.log("Your department was added successfully!");
                     var newDeptID = deptIDs.length;
                     deptIDs.push(newDeptID.toString());
-                    console.log(deptIDs);
                     init();
                 }
             );
@@ -123,7 +122,6 @@ function addRole() {
                     console.log("Your role was added successfully!");
                     var newRoleID = roleIDs.length;
                     roleIDs.push(newRoleID.toString());
-                    console.log(roleIDs);
                     init();
                 }
             );
@@ -174,7 +172,6 @@ function addEmployee() {
                     console.log("Your employee was added successfully!");
                     var newEmployeeID = employeeIDs.length;
                     employeeIDs.push(newEmployeeID.toString());
-                    console.log(employeeIDs);
                     init();
                 }
             );
