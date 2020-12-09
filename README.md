@@ -31,6 +31,9 @@ To test the application, enter some employees through the Add command and then a
 
  This project is licensed under WTFPL rules.
 
+ ##Video Link
+ [Video](https://drive.google.com/file/d/1bHkQVikjvj5tIs9nTDNaYAOeBmDFxmmO/view)
+
 ##Contact
 
  Contact: 
