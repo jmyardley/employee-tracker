@@ -1,6 +1,10 @@
 const mysql = require("mysql");
 const inquirer = require("inquirer");
 
+var deptIDs = ['0'];
+var roleIDs = ['0'];
+var employeeIDs = ['0'];
+
 var connection = mysql.createConnection({
     host: "localhost",
 
@@ -75,6 +79,9 @@ function addDepartment() {
                 function (err) {
                     if (err) throw err;
                     console.log("Your department was added successfully!");
+                    var newDeptID = deptIDs.length;
+                    deptIDs.push(newDeptID.toString());
+                    console.log(deptIDs);
                     init();
                 }
             );
@@ -82,6 +89,7 @@ function addDepartment() {
 }
 
 function addRole() {
+    let argument = deptIDs;
     inquirer
         .prompt([
             {
@@ -98,21 +106,24 @@ function addRole() {
                 name: "department_id",
                 type: "list",
                 message: "What is the department?",
-                choices: ["1", "2", "3"]
+                choices: argument
             },
 
         ]).then(function (answer) {
             connection.query(
                 "INSERT INTO role SET ?",
                 {
-                    title: answer.title,            
-                    salary: parseInt(answer.salary),             
+                    title: answer.title,
+                    salary: parseInt(answer.salary),
                     department_id: answer.department_id
                 },
 
                 function (err) {
                     if (err) throw err;
                     console.log("Your role was added successfully!");
+                    var newRoleID = roleIDs.length;
+                    roleIDs.push(newRoleID.toString());
+                    console.log(roleIDs);
                     init();
                 }
             );
@@ -120,6 +131,8 @@ function addRole() {
 }
 
 function addEmployee() {
+    let argument1 = roleIDs;
+    let argument2 = employeeIDs;
     inquirer
         .prompt([
             {
@@ -136,13 +149,13 @@ function addEmployee() {
                 name: "role_id",
                 type: "list",
                 message: "What is the employee's role id?",
-                choices: ["1", "2", "3"]
+                choices: argument1
             },
             {
                 name: "manager_id",
                 type: "list",
                 message: "What is the employee's manager id?",
-                choices: ["1", "2", "3"]
+                choices: argument2
             },
 
 
@@ -151,14 +164,17 @@ function addEmployee() {
                 "INSERT INTO employee SET ?",
                 {
                     first_name: answer.first_name,
-                    last_name: answer.last_name,            
-                    role_id: answer.role_id,             
+                    last_name: answer.last_name,
+                    role_id: answer.role_id,
                     manager_id: answer.manager_id
                 },
 
                 function (err) {
                     if (err) throw err;
                     console.log("Your employee was added successfully!");
+                    var newEmployeeID = employeeIDs.length;
+                    employeeIDs.push(newEmployeeID.toString());
+                    console.log(employeeIDs);
                     init();
                 }
             );
@@ -167,23 +183,23 @@ function addEmployee() {
 
 //viewing section
 
-function viewItem(){
+function viewItem() {
     inquirer
-    .prompt({
-        name: "viewType",
-        type: "list",
-        message: "What would you like to view?",
-        choices: ["Department", "Role", "Employee"]
-    })
-    .then(function (answer) {
-        if (answer.viewType === "Department") {
-            viewDepartment();
-        } else if (answer.viewType === "Role") {
-            viewRole();
-        } else if (answer.viewType === "Employee") {
-            viewEmployee();
-        }
-    });
+        .prompt({
+            name: "viewType",
+            type: "list",
+            message: "What would you like to view?",
+            choices: ["Department", "Role", "Employee"]
+        })
+        .then(function (answer) {
+            if (answer.viewType === "Department") {
+                viewDepartment();
+            } else if (answer.viewType === "Role") {
+                viewRole();
+            } else if (answer.viewType === "Employee") {
+                viewEmployee();
+            }
+        });
 
 }
 

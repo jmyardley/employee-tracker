@@ -28,6 +28,5 @@ CREATE TABLE employee (
   PRIMARY KEY (id)
 );
 
-INSERT INTO department (name)
-VALUES("Johnson");
+
 
