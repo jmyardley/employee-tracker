@@ -230,6 +230,38 @@ function viewEmployee() {
 
 //updating section
 function updateRole() {
-    console.log("Updating Role...!");
+    if (employeeIDs.length === 1) {
+        console.log("No employees to update.");
+        init();
+    } else {
+        let argument3 = employeeIDs.slice(1);
+        let argument4 = roleIDs;
+        inquirer
+            .prompt([
+                {
+                    name: "editID",
+                    type: "list",
+                    message: "Select the id of the employee you would like to edit:",
+                    choices: argument3
+                },
+                {
+                    name: "newRole",
+                    type: "list",
+                    message: "Select the id of the employee's new role:",
+                    choices: argument4
+                },
+
+            ])
+            .then(function (answer) {
+                connection.query(
+                    `UPDATE employee SET role_id = ${answer.newRole} WHERE id = ${answer.editID}`,
+                    function (err) {
+                        if (err) throw err;
+                        console.log("Your employee was updated successfully!");
+                        init();
+                    }
+                );
+            });
+    }
 }
 
